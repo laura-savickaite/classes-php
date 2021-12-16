@@ -1,5 +1,7 @@
 <?php
 
+require('bdd_connect.php');
+
 class User {
     private $id;
     public $login;
