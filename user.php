@@ -1,7 +1,6 @@
 <?php
 
 
-
 class User {
     private $id;
     public $login;
@@ -65,6 +64,17 @@ class User {
         $queryDelete = mysqli_query($connect, "DELETE FROM `utilisateurs` WHERE login = '".$_SESSION['login']."'");
     }
 
+    public function update($login, $password, $email, $firstname, $lastname){
+        require('bdd_connect.php');
+        session_start();
+
+        $queryUpdate = mysqli_query($connect, "UPDATE `utilisateurs` SET `login`='".$_POST['ulogin']."',`password`='".$_POST['umdp']."',`email`='".$_POST['uemail']."',`firstname`=''".$_POST['ufirstname']."'',`lastname`=''".$_POST['ulastname']."'' WHERE login='".$_SESSION['login']."'");
+
+        $_SESSION['login']=$_POST['ulogin'];
+        $_SESSION['email']=$_POST['uemail'];
+        $_SESSION['firstname']=$_POST['ufirstname'];
+        $_SESSION['lastname']=$_POST['ulastname'];
+    }
 
 }
 
@@ -97,6 +107,13 @@ if(isset($_POST['suppression'])){
     $User= new User();
     $User -> delete();
 }
+
+if(isset($_POST['update'])){
+    
+    $User= new User();
+    $User -> update($_POST['ulogin'], $_POST['umdp'], $_POST['uemail'], $_POST['ufirstname'], $_POST['ulastname']);
+}
+
 ?>
 
 
@@ -143,12 +160,38 @@ if(isset($_POST['suppression'])){
 
     </form>
 
+
+
     <form action="user.php" method="post">
         <button value="deconnexion" name="deco" id="deco">deconnexion</button>
     </form>
 
+
+
     <form action="user.php" method="post">
         <button value="suppression" name="suppression" id="suppression">suppression</button>
+    </form>
+
+
+
+    <form action="user.php" method="post">
+        <label for="name">Login: </label>
+        <input type="text" name="ulogin" id="loginn">  
+
+        <label for="name">Mot de passe: </label>
+        <input type="password" name="umdp" id="mdp">
+
+        <label for="name">Email: </label>
+        <input type="text" name="uemail" id="email">  
+
+        <label for="name">Firstname: </label>
+        <input type="text" name="ufirstname" id="firstname">  
+
+        <label for="name">Lastname: </label>
+        <input type="text" name="ulastname" id="lastname"> 
+
+        <button type="submit" name="update">Update</button>
+
     </form>
 </body>
 </html>
