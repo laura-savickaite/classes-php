@@ -76,6 +76,28 @@ class User {
         $_SESSION['lastname']=$_POST['ulastname'];
     }
 
+    public function isConnected(){
+        require('bdd_connect.php');
+        
+        if(isset($_SESSION['login'])){
+            echo "vous êtes connecté !"; 
+        }else {
+            echo "veuillez vous connecter.";
+        }
+    }
+
+    public function getAllInfos(){
+        require('bdd_connect.php');
+        
+        $queryInfos = mysqli_query($connect, "SELECT * FROM `utilisateurs` WHERE login='".$_SESSION['login']."'");
+        $fetchInfos = mysqli_fetch_assoc($queryInfos);
+        var_dump($fetchInfos);
+        echo $fetchInfos['login'];
+        echo $fetchInfos['email'];
+        echo $fetchInfos['firstname'];
+        echo $fetchInfos['lastname'];
+    }
+
 }
 
 // $User1= new User("bg","bg","bg@gmail.com", "bb", "gg");
@@ -109,9 +131,17 @@ if(isset($_POST['suppression'])){
 }
 
 if(isset($_POST['update'])){
-    
+
     $User= new User();
     $User -> update($_POST['ulogin'], $_POST['umdp'], $_POST['uemail'], $_POST['ufirstname'], $_POST['ulastname']);
+}
+
+$User= new User();
+$User -> isConnected();
+
+if(isset($_SESSION['login'])){
+    $User= new User();
+    $User -> getAllInfos();
 }
 
 ?>
