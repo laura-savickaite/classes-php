@@ -56,6 +56,15 @@ class User {
         session_destroy();
     }
 
+    public function delete(){
+        require('bdd_connect.php');
+        session_start();
+
+        session_destroy();
+
+        $queryDelete = mysqli_query($connect, "DELETE FROM `utilisateurs` WHERE login = '".$_SESSION['login']."'");
+    }
+
 
 }
 
@@ -82,6 +91,11 @@ if(isset($_POST['connexion'])){
 if(isset($_POST['deco'])){
     $User= new User();
     $User -> disconnect();
+}
+
+if(isset($_POST['suppression'])){
+    $User= new User();
+    $User -> delete();
 }
 ?>
 
@@ -133,6 +147,9 @@ if(isset($_POST['deco'])){
         <button value="deconnexion" name="deco" id="deco">deconnexion</button>
     </form>
 
+    <form action="user.php" method="post">
+        <button value="suppression" name="suppression" id="suppression">suppression</button>
+    </form>
 </body>
 </html>
 
