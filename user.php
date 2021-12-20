@@ -130,7 +130,6 @@ if(isset($_POST['suppression'])){
 }
 
 if(isset($_POST['update'])){
-
     $User= new User();
     $User -> update($_POST['ulogin'], $_POST['umdp'], $_POST['uemail'], $_POST['ufirstname'], $_POST['ulastname']);
 }
