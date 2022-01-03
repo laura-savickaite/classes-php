@@ -1,5 +1,23 @@
 <?php
 
+class Userpdo {
+    private $id;
+    public $login;
+    public $password;
+    public $email;
+    public $firstname;
+    public $lastname;
+
+    public function __construct(){
+        // $this->login = $login;
+        // $this->password = $password;
+        // $this->email = $email;
+        // $this->firstname = $firstname;
+        // $this->lastname = $lastname;
+    }
+}
+
+
 $host='localhost';
 $user='root';
 $password='';
