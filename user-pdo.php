@@ -14,8 +14,7 @@ class Userpdo {
         // $this->email = $email;
         // $this->firstname = $firstname;
         // $this->lastname = $lastname;
-    }
-}
+
 
 
 $host='localhost';
@@ -154,6 +153,8 @@ if(isset($_SESSION["login"])){
     // $post = $sth -> fetch();
     // var_dump($post);
     // echo $post -> login;
+}
+            }
 }
 
 ?>
